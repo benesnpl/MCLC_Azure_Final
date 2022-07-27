@@ -243,16 +243,6 @@ resource "azurerm_linux_virtual_machine" "vmseries" {
     storage_account_type = "Premium_LRS"
   }
 
-  # Bootstrap Information for Azure:
-  custom_data = base64encode(join(
-    ",",
-    [
-      "storage-account=${azurerm_storage_account.bootstrap.name}",
-      "access-key=${azurerm_storage_account.bootstrap.primary_access_key}",
-      "file-share=${azurerm_storage_share.bootstrap.name}",
-      "share-directory=${each.key}",
-    ],
-  ))
 
   # Dependencies:
   depends_on = [
